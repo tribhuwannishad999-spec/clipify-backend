@@ -9,7 +9,7 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial, sans-serif;
+font-family:Arial,sans-serif;
 }
 
 body{
@@ -17,10 +17,10 @@ min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-background:linear-gradient(135deg,#000000,#111,#001f3f,#3a0ca3);
+padding:20px;
+background:linear-gradient(135deg,#000,#111,#001f3f,#3a0ca3);
 background-size:400% 400%;
 animation:bgmove 10s infinite alternate;
-padding:20px;
 }
 
 @keyframes bgmove{
@@ -30,40 +30,34 @@ padding:20px;
 
 .box{
 width:100%;
-max-width:420px;
+max-width:430px;
 padding:30px;
 border-radius:25px;
-background:rgba(255,255,255,0.08);
-backdrop-filter:blur(12px);
-box-shadow:0 0 25px rgba(0,255,255,0.3);
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(14px);
+box-shadow:0 0 30px rgba(0,255,255,.25);
+color:#fff;
 text-align:center;
-color:white;
-animation:fade 1s ease;
-}
-
-@keyframes fade{
-from{opacity:0;transform:translateY(20px);}
-to{opacity:1;transform:translateY(0);}
 }
 
 .logo{
 font-size:38px;
 font-weight:bold;
-background:linear-gradient(to right,#00f5ff,#00ff88,#ff00ff);
+margin-bottom:10px;
+background:linear-gradient(90deg,#00f5ff,#00ff88,#ff00ff);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
-margin-bottom:15px;
 }
 
 .sub{
-font-size:15px;
-margin-bottom:25px;
 color:#ddd;
+font-size:14px;
+margin-bottom:20px;
 }
 
 input{
 width:100%;
-padding:15px;
+padding:14px;
 margin:10px 0;
 border:none;
 border-radius:12px;
@@ -71,24 +65,19 @@ font-size:15px;
 outline:none;
 }
 
-.file{
-background:white;
-padding:10px;
-}
-
 button{
 width:100%;
 padding:15px;
-margin-top:15px;
+margin-top:12px;
 border:none;
 border-radius:14px;
 font-size:18px;
 font-weight:bold;
-color:white;
+cursor:pointer;
+color:#fff;
 background:linear-gradient(90deg,#00f5ff,#00ff88,#ff00ff);
 background-size:300%;
-animation:btn 4s infinite linear;
-cursor:pointer;
+animation:btn 4s linear infinite;
 }
 
 @keyframes btn{
@@ -96,24 +85,28 @@ cursor:pointer;
 100%{background-position:right;}
 }
 
-button:hover{
-transform:scale(1.03);
+.loader{
+display:none;
+margin-top:18px;
+color:#00ffcc;
+font-size:15px;
+}
+
+.result{
+display:none;
+margin-top:18px;
+background:rgba(255,255,255,.08);
+padding:15px;
+border-radius:15px;
+font-size:14px;
 }
 
 .features{
-margin-top:20px;
+margin-top:18px;
 font-size:14px;
-color:#ddd;
 line-height:28px;
+color:#ddd;
 }
-
-.loader{
-display:none;
-margin-top:20px;
-font-size:15px;
-color:#00ffcc;
-}
-
 </style>
 </head>
 
@@ -124,13 +117,15 @@ color:#00ffcc;
 <div class="logo">Clipify AI</div>
 <div class="sub">AI Video Enhance • Shorts Maker • Auto Caption</div>
 
-<input type="file" class="file">
+<input type="file" id="videoFile">
 
-<input type="text" placeholder="Paste YouTube Link Here">
+<input type="text" id="ytlink" placeholder="Paste YouTube Link Here">
 
 <button onclick="run()">🚀 Enhance Now</button>
 
-<div class="loader" id="load">⚡ Processing Video...</div>
+<div class="loader" id="load">⚡ Processing...</div>
+
+<div class="result" id="result"></div>
 
 <div class="features">
 🎬 AI Color Grading <br>
@@ -143,11 +138,61 @@ color:#00ffcc;
 </div>
 
 <script>
-function run(){
-document.getElementById("load").style.display="block";
-setTimeout(()=>{
-document.getElementById("load").innerHTML="✅ Video Ready Soon!";
-},3000);
+async function run(){
+
+let file = document.getElementById("videoFile").files[0];
+let link = document.getElementById("ytlink").value;
+
+let load = document.getElementById("load");
+let result = document.getElementById("result");
+
+load.style.display="block";
+result.style.display="none";
+
+if(file){
+
+let formData = new FormData();
+formData.append("video", file);
+
+let res = await fetch("/upload",{
+method:"POST",
+body:formData
+});
+
+let data = await res.json();
+
+load.style.display="none";
+result.style.display="block";
+result.innerHTML="✅ " + data.message + "<br>📁 " + data.filename;
+
+}
+
+else if(link){
+
+let res = await fetch("/youtube",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({link:link})
+});
+
+let data = await res.json();
+
+load.style.display="none";
+result.style.display="block";
+result.innerHTML="✅ " + data.message + "<br>🔗 Link Accepted";
+
+}
+
+else{
+
+load.style.display="none";
+result.style.display="block";
+result.innerHTML="❌ Please upload file or paste link";
+
+}
+
 }
 </script>
 
