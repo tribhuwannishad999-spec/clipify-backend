@@ -1,188 +1,89 @@
+<!-- templates/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Clipify AI - Ultra Pro Max V2</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Clipify AI Pro Max</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
 body{
 min-height:100vh;
-background:
-radial-gradient(circle at top left,#00eaff33,transparent 30%),
-radial-gradient(circle at bottom right,#ff00cc33,transparent 30%),
-linear-gradient(135deg,#050510,#0d0d22,#000);
+padding:18px;
 color:#fff;
+background:
+radial-gradient(circle at top left,#00eaff33,transparent 28%),
+radial-gradient(circle at bottom right,#ff00cc33,transparent 28%),
+linear-gradient(135deg,#04040b,#0d1025,#000);
 overflow-x:hidden;
-padding:20px;
 }
-
-/* floating glow */
-body::before,
-body::after{
+body:before,body:after{
 content:"";
 position:fixed;
-width:260px;
-height:260px;
-border-radius:50%;
-filter:blur(120px);
-z-index:-1;
+width:260px;height:260px;border-radius:50%;
+filter:blur(120px);z-index:-1;opacity:.18;
 animation:float 7s infinite alternate;
 }
+body:before{background:#00eaff;top:-80px;left:-80px}
+body:after{background:#ff00cc;right:-80px;bottom:-80px}
+@keyframes float{from{transform:translateY(0)}to{transform:translateY(45px)}}
 
-body::before{
-background:#00eaff;
-top:-80px;
-left:-80px;
-opacity:.18;
+.wrap{max-width:470px;margin:auto}
+.top{
+display:flex;justify-content:space-between;align-items:center;margin-bottom:20px
 }
-
-body::after{
-background:#ff00cc;
-bottom:-80px;
-right:-80px;
-opacity:.18;
-}
-
-@keyframes float{
-from{transform:translateY(0);}
-to{transform:translateY(45px);}
-}
-
-.wrap{
-max-width:460px;
-margin:auto;
-}
-
-.topbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:20px;
-}
-
-.brand{
-font-size:28px;
-font-weight:800;
+.logo{
+font-size:28px;font-weight:800;
 background:linear-gradient(90deg,#00eaff,#00ff88,#ff00cc);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;
 }
-
 .badge{
-padding:8px 14px;
-border-radius:30px;
-font-size:12px;
-font-weight:700;
+padding:8px 14px;border-radius:30px;font-size:12px;font-weight:700;
 background:linear-gradient(90deg,#ff00cc,#00eaff);
-box-shadow:0 0 18px rgba(0,234,255,.25);
 animation:pulse 2s infinite;
 }
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
 
-@keyframes pulse{
-0%,100%{transform:scale(1);}
-50%{transform:scale(1.07);}
-}
-
-.hero{
-text-align:center;
-padding:10px 0 22px;
-}
-
+.hero{text-align:center;margin-bottom:20px}
 .hero h1{
-font-size:38px;
-line-height:1.1;
-font-weight:800;
-margin-bottom:10px;
+font-size:38px;line-height:1.1;font-weight:800;
 background:linear-gradient(90deg,#fff,#00eaff,#ff00cc);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;
 }
+.hero p{font-size:14px;color:#c6c8db;margin-top:10px}
 
-.hero p{
-color:#bfc3d8;
-font-size:14px;
-line-height:1.6;
-}
-
-/* main glass card */
 .card{
 background:rgba(255,255,255,.06);
 border:1px solid rgba(255,255,255,.08);
 backdrop-filter:blur(14px);
-padding:22px;
 border-radius:28px;
-box-shadow:
-0 0 28px rgba(0,234,255,.08),
-0 0 40px rgba(255,0,204,.06);
+padding:22px;
+box-shadow:0 0 30px rgba(0,234,255,.08);
 }
 
 .zone{
+padding:22px 16px;
+border-radius:22px;
 border:2px dashed rgba(255,255,255,.12);
-border-radius:24px;
-padding:24px 16px;
-text-align:center;
 background:rgba(255,255,255,.03);
-position:relative;
-overflow:hidden;
-}
-
-.zone::before{
-content:"";
-position:absolute;
-left:-30%;
-top:0;
-width:30%;
-height:100%;
-background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);
-transform:skewX(-20deg);
-animation:shine 3s infinite;
-}
-
-@keyframes shine{
-0%{left:-40%;}
-100%{left:140%;}
+text-align:center;
 }
 
 .icon{
-width:78px;
-height:78px;
-margin:auto;
+width:78px;height:78px;margin:auto;
 border-radius:22px;
-display:flex;
-align-items:center;
-justify-content:center;
+display:flex;justify-content:center;align-items:center;
 font-size:34px;
 background:linear-gradient(135deg,#00eaff,#ff00cc);
-box-shadow:0 0 22px rgba(0,234,255,.22);
-margin-bottom:16px;
-animation:rotate 5s linear infinite;
+margin-bottom:14px;
+animation:spin 5s linear infinite;
 }
+@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
 
-@keyframes rotate{
-0%{transform:rotate(0deg);}
-100%{transform:rotate(360deg);}
-}
-
-.zone h3{
-font-size:24px;
-font-weight:700;
-}
-
-.zone p{
-margin-top:8px;
-font-size:13px;
-color:#c9c9d8;
-}
+.zone h3{font-size:24px}
+.zone p{font-size:13px;color:#cdd0e2;margin-top:8px}
 
 input{
 width:100%;
@@ -196,77 +97,50 @@ background:#fff;
 color:#111;
 }
 
-#videoFile{
-display:none;
-}
+#videoFile{display:none}
 
-/* premium upload button */
-.upload-btn{
+.upbtn,.go{
 display:block;
-width:100%;
-margin-top:16px;
-padding:16px;
-border-radius:18px;
-font-weight:800;
-font-size:16px;
-text-align:center;
-cursor:pointer;
-color:#fff;
-background:linear-gradient(90deg,#00eaff,#00ff88,#ff00cc);
-background-size:250% 250%;
-animation:movegrad 4s linear infinite;
-box-shadow:0 14px 30px rgba(0,234,255,.18);
-transition:.3s;
-}
-
-.upload-btn:hover{
-transform:translateY(-3px) scale(1.02);
-}
-
-.action-btn{
 width:100%;
 padding:16px;
 margin-top:14px;
 border:none;
 border-radius:18px;
-font-size:17px;
+font-size:16px;
 font-weight:800;
+text-align:center;
 cursor:pointer;
 color:#fff;
-background:linear-gradient(90deg,#ff00cc,#7a5cff,#00eaff);
+background:linear-gradient(90deg,#00eaff,#00ff88,#ff00cc);
 background-size:250% 250%;
-animation:movegrad 4s linear infinite;
-box-shadow:0 14px 30px rgba(255,0,204,.16);
+animation:grad 4s linear infinite;
 }
+.go{font-size:17px;background:linear-gradient(90deg,#ff00cc,#7a5cff,#00eaff)}
+@keyframes grad{0%{background-position:0 50%}100%{background-position:100% 50%}}
 
-@keyframes movegrad{
-0%{background-position:0% 50%;}
-100%{background-position:100% 50%;}
-}
-
-.meta{
-margin-top:12px;
-font-size:13px;
-color:#d7d7e7;
-word-break:break-word;
-}
-
-.loader,.result{
-display:none;
-margin-top:16px;
+.meta,.loader,.result{
+margin-top:14px;
 padding:14px;
 border-radius:16px;
 font-size:14px;
 }
+.meta{padding:0;background:none;color:#d7d9e8}
+.loader{display:none;background:rgba(0,234,255,.08);color:#00eaff}
+.result{display:none;background:rgba(0,255,136,.08);color:#9affd2}
 
-.loader{
-background:rgba(0,234,255,.08);
-color:#00eaff;
+.bar{
+display:none;
+margin-top:12px;
+height:10px;
+background:#1b1d2f;
+border-radius:20px;
+overflow:hidden;
 }
-
-.result{
-background:rgba(0,255,136,.08);
-color:#8fffd1;
+.fill{
+height:100%;
+width:0%;
+background:linear-gradient(90deg,#00eaff,#ff00cc);
+transition:.3s;
 }
 
 .grid{
@@ -275,58 +149,31 @@ grid-template-columns:repeat(3,1fr);
 gap:10px;
 margin-top:18px;
 }
-
 .small{
 padding:12px;
 border-radius:18px;
 background:rgba(255,255,255,.05);
 text-align:center;
 font-size:12px;
-color:#d9d9e8;
+color:#d8daea;
 }
+.small b{display:block;color:#00eaff;font-size:18px}
 
-.small b{
-display:block;
-font-size:18px;
-color:#00eaff;
-margin-bottom:4px;
-}
-
-.features{
-margin-top:18px;
-display:grid;
-gap:10px;
-}
-
-.f{
-padding:12px;
-border-radius:16px;
-background:rgba(255,255,255,.04);
-font-size:13px;
-color:#d9d9e8;
-}
-
-footer{
-text-align:center;
-padding:24px 10px 8px;
-font-size:12px;
-color:#9ca0b6;
-}
-
+footer{text-align:center;font-size:12px;color:#a0a4bb;padding:22px 0 8px}
 </style>
 </head>
 <body>
 
 <div class="wrap">
 
-<div class="topbar">
-<div class="brand">Clipify AI</div>
-<div class="badge">TRENDING</div>
+<div class="top">
+<div class="logo">Clipify AI</div>
+<div class="badge">LIVE</div>
 </div>
 
 <div class="hero">
 <h1>Long Video To <br> Viral Shorts</h1>
-<p>Upload video or paste YouTube link and get AI enhanced shorts with captions.</p>
+<p>Upload video and generate real downloadable short clips instantly.</p>
 </div>
 
 <div class="card">
@@ -334,18 +181,21 @@ color:#9ca0b6;
 <div class="zone">
 <div class="icon">⚡</div>
 <h3>Create Instantly</h3>
-<p>Upload your file or paste link below</p>
+<p>Select your video and generate a 15 sec short</p>
 
 <input type="file" id="videoFile" accept="video/*">
-<label for="videoFile" class="upload-btn">📁 SELECT VIDEO FILE</label>
+<label for="videoFile" class="upbtn">📁 SELECT VIDEO FILE</label>
 
-<input type="text" id="ytlink" placeholder="🔗 Paste YouTube Link Here">
-
-<button class="action-btn" onclick="run()">🚀 GENERATE NOW</button>
+<button class="go" onclick="run()">🚀 GENERATE SHORT NOW</button>
 
 <div class="meta" id="meta">No file selected</div>
 
-<div class="loader" id="load">⚡ AI Processing... Please wait</div>
+<div class="loader" id="load">⚡ Processing your video...</div>
+
+<div class="bar" id="bar">
+<div class="fill" id="fill"></div>
+</div>
+
 <div class="result" id="result"></div>
 
 </div>
@@ -356,69 +206,81 @@ color:#9ca0b6;
 <div class="small"><b>99%</b>Happy</div>
 </div>
 
-<div class="features">
-<div class="f">🎬 AI Color Grading + Premium Look</div>
-<div class="f">🎵 Original Audio Safe + Enhance</div>
-<div class="f">📝 Smart Captions + Viral Style</div>
 </div>
 
-</div>
-
-<footer>© 2026 Clipify AI • Ultra Pro Max V2</footer>
+<footer>© 2026 Clipify AI Pro Max</footer>
 
 </div>
 
 <script>
-document.getElementById("videoFile").addEventListener("change",function(){
-let file=this.files[0];
-if(file){
-document.getElementById("meta").innerHTML="📁 Selected: "+file.name;
+const fileInput=document.getElementById("videoFile");
+fileInput.addEventListener("change",function(){
+if(this.files[0]){
+document.getElementById("meta").innerHTML="📁 "+this.files[0].name;
 }
 });
 
 async function run(){
 
-let file=document.getElementById("videoFile").files[0];
-let link=document.getElementById("ytlink").value.trim();
-
+let file=fileInput.files[0];
 let load=document.getElementById("load");
 let result=document.getElementById("result");
+let bar=document.getElementById("bar");
+let fill=document.getElementById("fill");
+
+if(!file){
+result.style.display="block";
+result.innerHTML="❌ Please select video first";
+return;
+}
 
 load.style.display="block";
+bar.style.display="block";
 result.style.display="none";
 
-if(file){
+let p=0;
+let timer=setInterval(()=>{
+p+=5;
+if(p<=95){fill.style.width=p+"%";}
+},200);
 
 let fd=new FormData();
 fd.append("video",file);
 
+try{
+
 let res=await fetch("/upload",{method:"POST",body:fd});
-let data=await res.json();
+
+clearInterval(timer);
+fill.style.width="100%";
+
+if(res.ok){
+
+let blob=await res.blob();
+let url=URL.createObjectURL(blob);
+
+let a=document.createElement("a");
+a.href=url;
+a.download="clipify-short.mp4";
+document.body.appendChild(a);
+a.click();
+a.remove();
 
 load.style.display="none";
 result.style.display="block";
-result.innerHTML="✅ "+data.message+"<br>📁 "+data.filename;
+result.innerHTML="✅ Short generated & download started";
 
+}else{
+load.style.display="none";
+result.style.display="block";
+result.innerHTML="❌ Failed to process video";
 }
-else if(link){
 
-let res=await fetch("/youtube",{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify({link:link})
-});
-
-let data=await res.json();
-
+}catch(e){
+clearInterval(timer);
 load.style.display="none";
 result.style.display="block";
-result.innerHTML="✅ "+data.message+"<br>🔗 Link Accepted";
-
-}
-else{
-load.style.display="none";
-result.style.display="block";
-result.innerHTML="❌ Please select file or paste link";
+result.innerHTML="❌ Server error";
 }
 
 }
